@@ -12,6 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify project structure
+        run: |
+          if [ ! -f "settings.gradle" ]; then
+            echo "::error::settings.gradle not found at repo root. Make sure the repository's root directory directly contains settings.gradle, build.gradle, and the app/ folder (not nested inside a subfolder)."
+            exit 1
+          fi
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
